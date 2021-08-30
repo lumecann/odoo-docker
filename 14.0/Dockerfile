@@ -36,6 +36,19 @@ RUN apt-get update && \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
+# Install face_recognition and dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    cmake \
+    python3-dev \
+    build-essential \
+    rustc \
+    libx11-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    && pip3 install face_recognition \
+    && rm -rf /var/lib/apt/lists/*
+
 # install latest postgresql-client
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
     && GNUPGHOME="$(mktemp -d)" \
